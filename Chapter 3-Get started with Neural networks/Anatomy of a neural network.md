@@ -1,9 +1,7 @@
-# Gettting started with neural networks
-
-## Anatomy of a neural 
+# Anatomy of a neural network
 
 As you saw in the previous chapters, training a neural network revolves around the following objects:
-- Layers, which are combined into a network (or model)
+- Layers, The fundamental data structure in neural networks is the layer
 - The input data and corresponding targets
 - The loss function, which defines the feedback signal used for learning
 - The optimizer, which determines how learning proceeds and uses loss vlaue to update the networks weights
@@ -13,10 +11,14 @@ As you saw in the previous chapters, training a neural network revolves around t
 ### 1. Layers: the building block of deep learning
 
 Different layers are appropriate for different tensor formats and different types of data processing.  
-- simple vector data, stored in 2D tensors of shape (samples, features), is often processed by densely connected layers, also called fully connected or dense layers **(the Dense class in Keras)**. 
-- Sequence data, stored in 3D tensors of shape (samples, timesteps, features), is typically processed by recurrent layers such as an **LSTM layer**. 
-- Image data, stored in 4D tensors, is usually processed by 2D convolution layers **(Conv2D)**
+- simple vector data, stored in rank-2 tensors of shape (samples, features), is often processed by densely connected layers, also called fully connected or dense layers **(the Dense class in Keras)**. 
+- Sequence data, stored in rank-3 tensors of shape (samples, timesteps, features), is typically processed by recurrent layers such as an **LSTM layer** or  **1D convolution layers (Conv1D)**
+- Image data, stored in rank-4 tensors, is usually processed by 2D convolution layers **(Conv2D)**
+You can think of layers as the LEGO bricks of deep learning, a metaphor that is made explicit by Keras. Building deep learning models in Keras is done by clipping together compatible layers to form useful data-transformation pipelines.
 
+- 
+Layer is an object that encapsulates some state (weights) and some computation (a forward pass). The weights are typically defined in a build() (although they could also be created in the constructor, __init__()), and the computation is defined in
+the call() method.
 ![Layers](./screenshot/layers.jpg)
 
 
