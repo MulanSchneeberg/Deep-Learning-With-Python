@@ -1,0 +1,64 @@
+# First steps with Tensorflow
+Training a neural network revolves around the following concepts:
+
+1. First, low-level tensor manipulation—the infrastructure that underlies all modern machine learning. This translates to TensorFlow APIs:
+    - Tensors, including special tensors that store the network’s state (variables)
+    - Tensor operations such as addition, relu, matmul
+    - Backpropagation, a way to compute the gradient of mathematical expressions (handled in TensorFlow via ``GradientTape`` object)
+
+2. Second, high-level deep learning concepts. This translates to Keras APIs.
+    - *Layers*, which are combined into a model
+    - An *optimizer*, which defines the feedback signal used for learning
+    - *Metrics* to evaluate model performance, such as accuracy
+    - A *training loop* that performs mini-batch stochastic gradient descent
+
+## Constant tensors and variables
+
+1.  Create Tensors: To do anything with TensorFlow, we need tensors. Tensors need to be created with some initial values
+e.g.
+- all-ones or all-zeros
+- or tensers of values drawn from a random distribution
+
+````python
+import tensorflow as tf
+x=tf.ones(shape=(2,1)) # equivalent to np.ones(shape=(2,1))
+x=tf.zeros(shape=(2,1))
+x=tf.random.normal(shape=(3,1), mean=0., stddev=1.)
+x=tf.random.uniform(shape=(3,1), minval=0., maxval=1.)
+
+
+````
+
+A significant difference between NumPy arrays and TensorFlow tensors is that TensorFlow tensors aren’t assignable: they’re constant.
+To train a model, we’ll need to update its state, which is a set of tensors. If tensors aren’t assignable, how do we do it? That’s where variables come in.
+***tf.Variable*** is the class meant to manage modifiable state in TensorFlow.
+
+2. Create variables: To create a variable, you need to provide some initial value, such as a random tensor.
+
+````python
+v=tf.Variable(initial_value=tf.random.normal(shape=(3,1)))
+v.assign(tf.ones(shape=(3,1)))
+v[0, 0].assign(3)
+v.assign_add(tf.ones((3,1)))
+````
+
+
+## Tensor operations: Doing math in Tensorflow
+Very similar to numpy
+
+````python
+a=tf.ones((2,2))
+b=tf.square(a)
+c=tf.sqrt(a)
+d=b+c
+e=tf.matmul(a,b) # Take the product of two tensors
+e *=d
+````
+
+
+## GradientTape API
+
+Just open a `GradientTape` scope, apply some computation to one or several input tensors, and reetrieve the gradient of the result with respect to the inputs.
+
+
+
